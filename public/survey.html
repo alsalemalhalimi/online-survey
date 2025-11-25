@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>استبيان التعليم الإلكتروني</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+            color: #333;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #28a745, #20c997);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        
+        .header h1 {
+            font-size: 2.2em;
+            margin-bottom: 10px;
+        }
+        
+        .content {
+            padding: 30px;
+        }
+        
+        .form-group {
+            margin-bottom: 25px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            border-right: 4px solid #28a745;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: bold;
+            font-size: 1.1em;
+        }
+        
+        input[type="text"], textarea {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+            margin-bottom: 10px;
+        }
+        
+        textarea {
+            height: 100px;
+            resize: vertical;
+        }
+        
+        .checkbox-group, .radio-group {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        
+        .checkbox-item, .radio-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        button {
+            background: linear-gradient(135deg, #007bff, #0056b3);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 10px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 20px;
+        }
+        
+        button:hover {
+            background: linear-gradient(135deg, #0056b3, #004085);
+        }
+        
+        .tabs {
+            display: flex;
+            margin-bottom: 20px;
+            background: #e9ecef;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        
+        .tab {
+            flex: 1;
+            padding: 15px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .tab.active {
+            background: #28a745;
+            color: white;
+        }
+        
+        .tab-content {
+            display: none;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        .thank-you {
+            text-align: center;
+            padding: 40px;
+            display: none;
+        }
+        
+        .thank-you h2 {
+            color: #28a745;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🎓 استبيان فعالية التعليم الإلكتروني</h1>
+            <p>شاركنا رأيك لتحسين تجربة التعليم الإلكتروني</p>
+        </div>
+        
+        <div class="content">
+            <div class="tabs">
+                <div class="tab active" onclick="showTab('student')">👨‍🎓 للطلاب</div>
+                <div class="tab" onclick="showTab('professor')">👨‍🏫 للهيئة التدريسية</div>
+            </div>
+            
+            <!-- استبيان الطلاب -->
+            <div id="student-tab" class="tab-content active">
+                <form id="student-form">
+                    <div class="form-group">
+                        <label>1. الاسم (اختياري)</label>
+                        <input type="text" name="name" placeholder="اسمك">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>2. التخصص</label>
+                        <input type="text" name="major" placeholder="تخصصك الدراسي">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>3. المستوى الدراسي</label>
+                        <input type="text" name="level" placeholder="مستواك الدراسي">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>4. كيف تقيم تجربتك مع التعليم الإلكتروني؟</label>
+                        <div class="radio-group">
+                            <div class="radio-item">
+                                <input type="radio" name="experience" value="ممتاز" id="exp1">
+                                <label for="exp1">ممتاز</label>
+                            </div>
+                            <div class="radio-item">
+                                <input type="radio" name="experience" value="جيد" id="exp2">
+                                <label for="exp2">جيد</label>
+                            </div>
+                            <div class="radio-item">
+                                <input type="radio" name="experience" value="متوسط" id="exp3">
+                                <label for="exp3">متوسط</label>
+                            </div>
+                            <div class="radio-item">
+                                <input type="radio" name="experience" value="ضعيف" id="exp4">
+                                <label for="exp4">ضعيف</label>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>5. ما هي أبرز مميزات التعليم الإلكتروني؟</label>
+                        <div class="checkbox-group">
+                            <div class="checkbox-item">
+                                <input type="checkbox" name="advantages" value="المرونة في الوقت" id="adv1">
+                                <label for="adv1">المرونة في الوقت</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" name="advantages" value="توفير الوقت والجهد" id="adv2">
+                                <label for="adv2">توفير الوقت والجهد</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" name="advantages" value="تنوع الوسائل التعليمية" id="adv3">
+                                <label for="adv3">تنوع الوسائل التعليمية</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" name="advantages" value="إعادة المحاضرات" id="adv4">
+                                <label for="adv4">إعادة المحاضرات</label>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>6. ما هي التحديات التي واجهتك؟</label>
+                        <div class="checkbox-group">
+                            <div class="checkbox-item">
+                                <input type="checkbox" name="challenges" value="صعوبة التركيز" id="chal1">
+                                <label for="chal1">صعوبة التركيز</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" name="challenges" value="مشاكل تقنية" id="chal2">
+                                <label for="chal2">مشاكل تقنية</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" name="challenges" value="قلة التفاعل" id="chal3">
+                                <label for="chal3">قلة التفاعل</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" name="challenges" value="صعوبة فهم المواد" id="chal4">
+                                <label for="chal4">صعوبة فهم المواد</label>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>7. ما هي اقتراحاتك لتحسين التجربة؟</label>
+                        <textarea name="suggestions" placeholder="اكتب اقتراحاتك هنا..."></textarea>
+                    </div>
+                    
+                    <button type="submit">إرسال الاستبيان</button>
+                </form>
+            </div>
+            
+            <!-- استبيان الهيئة التدريسية -->
+            <div id="professor-tab" class="tab-content">
+                <form id="professor-form">
+                    <div class="form-group">
+                        <label>1. الاسم (اختياري)</label>
+                        <input type="text" name="name" placeholder="اسمك">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>2. القسم</label>
+                        <input type="text" name="department" placeholder="القسم">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>3. المادة</label>
+                        <input type="text" name="course" placeholder="المادة">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>4. كيف تقيم تجربتك مع التعليم الإلكتروني؟</label>
+                        <div class="radio-group">
+                            <div class="radio-item">
+                                <input type="radio" name="experience" value="ممتاز" id="prof-exp1">
+                                <label for="prof-exp1">ممتاز</label>
+                            </div>
+                            <div class="radio-item">
+                                <input type="radio" name="experience" value="جيد" id="prof-exp2">
+                                <label for="prof-exp2">جيد</label>
+                            </div>
+                            <div class="radio-item">
+                                <input type="radio" name="experience" value="متوسط" id="prof-exp3">
+                                <label for="prof-exp3">متوسط</label>
+                            </div>
+                            <div class="radio-item">
+                                <input type="radio" name="experience" value="ضعيف" id="prof-exp4">
+                                <label for="prof-exp4">ضعيف</label>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>5. ما هي أبرز التحديات التقنية؟</label>
+                        <div class="checkbox-group">
+                            <div class="checkbox-item">
+                                <input type="checkbox" name="tech_challenges" value="جودة الإنترنت" id="tech1">
+                                <label for="tech1">جودة الإنترنت</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" name="tech_challenges" value="منصات التعليم" id="tech2">
+                                <label for="tech2">منصات التعليم</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" name="tech_challenges" value="التفاعل مع الطلاب" id="tech3">
+                                <label for="tech3">التفاعل مع الطلاب</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" name="tech_challenges" value="تقييم الطلاب" id="tech4">
+                                <label for="tech4">تقييم الطلاب</label>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>6. ما مدى فعالية أدوات التقويم الإلكتروني؟</label>
+                        <div class="radio-group">
+                            <div class="radio-item">
+                                <input type="radio" name="evaluation" value="فعالة جداً" id="eval1">
+                                <label for="eval1">فعالة جداً</label>
+                            </div>
+                            <div class="radio-item">
+                                <input type="radio" name="evaluation" value="فعالة" id="eval2">
+                                <label for="eval2">فعالة</label>
+                            </div>
+                            <div class="radio-item">
+                                <input type="radio" name="evaluation" value="متوسطة" id="eval3">
+                                <label for="eval3">متوسطة</label>
+                            </div>
+                            <div class="radio-item">
+                                <input type="radio" name="evaluation" value="غير فعالة" id="eval4">
+                                <label for="eval4">غير فعالة</label>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>7. اقتراحات للتحسين:</label>
+                        <textarea name="suggestions" placeholder="اكتب اقتراحاتك هنا..."></textarea>
+                    </div>
+                    
+                    <button type="submit">إرسال الاستبيان</button>
+                </form>
+            </div>
+            
+            <!-- رسالة الشكر -->
+            <div id="thank-you" class="thank-you">
+                <h2>شكراً لمشاركتك! 🎉</h2>
+                <p>رأيك مهم لنا لتحسين تجربة التعليم الإلكتروني</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function showTab(tabName) {
+            // إخفاء جميع التبويبات
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            document.querySelectorAll('.tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            
+            // إظهار التبويب المحدد
+            document.getElementById(tabName + '-tab').classList.add('active');
+            event.target.classList.add('active');
+        }
+        
+        // معالجة إرسال الاستبيان
+        document.getElementById('student-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            document.getElementById('student-tab').style.display = 'none';
+            document.getElementById('thank-you').style.display = 'block';
+        });
+        
+        document.getElementById('professor-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            document.getElementById('professor-tab').style.display = 'none';
+            document.getElementById('thank-you').style.display = 'block';
+        });
+    </script>
+</body>
+</html>
