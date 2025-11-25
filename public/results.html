@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>نتائج الاستبيان</title>
+    <title>نتائج دراسة أنظمة التعليم الإلكتروني</title>
     <style>
         * {
             margin: 0;
@@ -46,12 +46,18 @@
             border-radius: 10px;
             text-decoration: none;
             margin-bottom: 20px;
+            transition: all 0.3s ease;
+        }
+        
+        .back-btn:hover {
+            background: #0056b3;
+            transform: translateY(-2px);
         }
         
         .stats-container {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
             margin-bottom: 30px;
         }
         
@@ -64,7 +70,7 @@
         }
         
         .stat-number {
-            font-size: 2.5em;
+            font-size: 2.2em;
             font-weight: bold;
             color: #007bff;
         }
@@ -81,19 +87,53 @@
             margin-bottom: 20px;
             padding-bottom: 10px;
             border-bottom: 2px solid #007bff;
+            text-align: center;
+        }
+        
+        .charts-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
         }
         
         .chart-container {
             background: white;
             padding: 20px;
             border-radius: 10px;
-            margin: 15px 0;
             border: 1px solid #ddd;
+            text-align: center;
+        }
+        
+        .system-comparison {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+        
+        .system-card {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            border: 2px solid transparent;
+        }
+        
+        .system-1 { border-color: #28a745; }
+        .system-2 { border-color: #007bff; }
+        .system-3 { border-color: #dc3545; }
+        
+        .system-score {
+            font-size: 2em;
+            font-weight: bold;
+            margin: 10px 0;
         }
         
         .responses-list {
             max-height: 400px;
             overflow-y: auto;
+            margin-top: 15px;
         }
         
         .response-item {
@@ -104,17 +144,31 @@
             border-right: 4px solid #28a745;
         }
         
+        .response-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+        }
+        
         .loading {
             text-align: center;
             padding: 40px;
             font-size: 1.2em;
+        }
+        
+        .team-mention {
+            text-align: center;
+            margin-top: 20px;
+            color: #666;
+            font-style: italic;
         }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="header">
-            <h1>📊 نتائج استبيان التعليم الإلكتروني</h1>
+            <h1>📊 نتائج دراسة أنظمة التعليم الإلكتروني</h1>
+            <p>تحليل وتقارير حول فعالية الأنظمة المقترحة</p>
             <a href="/" class="back-btn">🏠 العودة للرئيسية</a>
         </div>
 
@@ -132,15 +186,41 @@
                 <div>إجمالي المشاركين</div>
             </div>
             <div class="stat-card">
-                <div class="stat-number" id="completionRate">0%</div>
+                <div class="stat-number" id="completionRate">100%</div>
                 <div>معدل الإكمال</div>
             </div>
         </div>
 
         <div class="results-section">
-            <h2 class="section-title">📈 التقييم العام للتعليم الإلكتروني</h2>
-            <div class="chart-container">
-                <canvas id="experienceChart" width="400" height="200"></canvas>
+            <h2 class="section-title">🏆 ترتيب الأنظمة حسب الأهمية</h2>
+            <div class="system-comparison">
+                <div class="system-card system-1">
+                    <h3>🤖 نظام التحضير الآلي</h3>
+                    <div class="system-score" id="attendanceScore">0</div>
+                    <div>تصويت</div>
+                </div>
+                <div class="system-card system-2">
+                    <h3>🎥 نظام إدارة المحاضرات</h3>
+                    <div class="system-score" id="lectureScore">0</div>
+                    <div>تصويت</div>
+                </div>
+                <div class="system-card system-3">
+                    <h3>👁️ نظام مراقبة الاختبارات</h3>
+                    <div class="system-score" id="examScore">0</div>
+                    <div>تصويت</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="results-section">
+            <h2 class="section-title">📈 التقييم العام للأنظمة</h2>
+            <div class="charts-grid">
+                <div class="chart-container">
+                    <canvas id="systemsChart" width="400" height="300"></canvas>
+                </div>
+                <div class="chart-container">
+                    <canvas id="importanceChart" width="400" height="300"></canvas>
+                </div>
             </div>
         </div>
 
@@ -157,6 +237,10 @@
                 <div class="loading">جاري تحميل البيانات...</div>
             </div>
         </div>
+
+        <div class="team-mention">
+            <p>فريق التطوير: سالم الحالمي، بدرالدين عقبة، أحمد زيدان، عمران عازب، محمد المريسي، طارق الشامي</p>
+        </div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -168,10 +252,13 @@
                 const data = await response.json();
                 
                 displayStats(data);
+                displaySystemsRanking(data);
                 displayCharts(data);
                 displayResponses(data);
             } catch (error) {
                 console.error('Error loading results:', error);
+                document.getElementById('studentsList').innerHTML = '<div>خطأ في تحميل البيانات</div>';
+                document.getElementById('professorsList').innerHTML = '<div>خطأ في تحميل البيانات</div>';
             }
         }
 
@@ -183,52 +270,59 @@
             document.getElementById('totalStudents').textContent = studentsCount;
             document.getElementById('totalProfessors').textContent = professorsCount;
             document.getElementById('totalResponses').textContent = total;
-            document.getElementById('completionRate').textContent = '100%';
+        }
+
+        function displaySystemsRanking(data) {
+            document.getElementById('attendanceScore').textContent = data.summary.systems_ranking.attendance_system;
+            document.getElementById('lectureScore').textContent = data.summary.systems_ranking.lecture_system;
+            document.getElementById('examScore').textContent = data.summary.systems_ranking.exam_system;
         }
 
         function displayCharts(data) {
-            // تجميع بيانات التقييم
-            const experienceCounts = {
-                'ممتاز': 0, 'جيد': 0, 'متوسط': 0, 'ضعيف': 0
-            };
-            
-            [...data.students, ...data.professors].forEach(response => {
-                if (response.experience) {
-                    experienceCounts[response.experience]++;
-                }
-            });
-            
-            // رسم图表
-            const ctx = document.getElementById('experienceChart').getContext('2d');
-            new Chart(ctx, {
+            // رسم مخطط تصنيف الأنظمة
+            const systemsCtx = document.getElementById('systemsChart').getContext('2d');
+            new Chart(systemsCtx, {
                 type: 'bar',
                 data: {
-                    labels: ['ممتاز', 'جيد', 'متوسط', 'ضعيف'],
+                    labels: ['نظام التحضير الآلي', 'نظام إدارة المحاضرات', 'نظام مراقبة الاختبارات'],
                     datasets: [{
-                        label: 'عدد التقييمات',
+                        label: 'عدد التصويتات',
                         data: [
-                            experienceCounts['ممتاز'],
-                            experienceCounts['جيد'],
-                            experienceCounts['متوسط'],
-                            experienceCounts['ضعيف']
+                            data.summary.systems_ranking.attendance_system,
+                            data.summary.systems_ranking.lecture_system,
+                            data.summary.systems_ranking.exam_system
                         ],
-                        backgroundColor: [
-                            '#28a745',
-                            '#20c997',
-                            '#ffc107',
-                            '#dc3545'
-                        ]
+                        backgroundColor: ['#28a745', '#007bff', '#dc3545']
                     }]
                 },
                 options: {
                     responsive: true,
                     plugins: {
-                        legend: {
-                            display: false
-                        },
                         title: {
                             display: true,
-                            text: 'توزيع التقييمات'
+                            text: 'تصنيف الأنظمة حسب الأهمية'
+                        }
+                    }
+                }
+            });
+
+            // رسم مخطط توزيع المشاركين
+            const importanceCtx = document.getElementById('importanceChart').getContext('2d');
+            new Chart(importanceCtx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['الطلاب', 'الهيئة التدريسية'],
+                    datasets: [{
+                        data: [data.students.length, data.professors.length],
+                        backgroundColor: ['#28a745', '#007bff']
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: 'توزيع المشاركين'
                         }
                     }
                 }
@@ -238,27 +332,39 @@
         function displayResponses(data) {
             // عرض مشاركات الطلاب
             const studentsList = document.getElementById('studentsList');
-            studentsList.innerHTML = data.students.slice(-5).reverse().map(student => `
-                <div class="response-item">
-                    <strong>${student.name || 'مجهول'}</strong> - ${student.major || 'غير محدد'}
-                    <div style="color: #666; font-size: 0.9em; margin-top: 5px;">
-                        التقييم: ${student.experience || 'غير محدد'} - ${student.timestamp}
+            if (data.students.length > 0) {
+                studentsList.innerHTML = data.students.slice(-5).reverse().map(student => `
+                    <div class="response-item">
+                        <div class="response-header">
+                            <strong>${student.name || 'طالب'}</strong>
+                            <span style="color: #666; font-size: 0.9em;">${student.timestamp}</span>
+                        </div>
+                        <div>التخصص: ${student.major || 'غير محدد'}</div>
+                        <div>النظام المفضل: ${student.most_effective || 'غير محدد'}</div>
+                        ${student.suggestions ? `<div style="margin-top: 8px; padding: 8px; background: white; border-radius: 5px;">${student.suggestions}</div>` : ''}
                     </div>
-                    ${student.suggestions ? `<div style="margin-top: 8px; padding: 8px; background: white; border-radius: 5px;">${student.suggestions}</div>` : ''}
-                </div>
-            `).join('') || '<div>لا توجد مشاركات حتى الآن</div>';
+                `).join('');
+            } else {
+                studentsList.innerHTML = '<div>لا توجد مشاركات للطلاب حتى الآن</div>';
+            }
 
-            // عرض مشاركات الدكاترة
+            // عرض مشاركات الهيئة التدريسية
             const professorsList = document.getElementById('professorsList');
-            professorsList.innerHTML = data.professors.slice(-5).reverse().map(prof => `
-                <div class="response-item">
-                    <strong>${prof.name || 'مجهول'}</strong> - ${prof.department || 'غير محدد'}
-                    <div style="color: #666; font-size: 0.9em; margin-top: 5px;">
-                        التقييم: ${prof.experience || 'غير محدد'} - ${prof.timestamp}
+            if (data.professors.length > 0) {
+                professorsList.innerHTML = data.professors.slice(-5).reverse().map(prof => `
+                    <div class="response-item">
+                        <div class="response-header">
+                            <strong>${prof.name || 'عضو هيئة تدريس'}</strong>
+                            <span style="color: #666; font-size: 0.9em;">${prof.timestamp}</span>
+                        </div>
+                        <div>القسم: ${prof.department || 'غير محدد'}</div>
+                        <div>النظام الأكثر تأثيراً: ${prof.most_impactful || 'غير محدد'}</div>
+                        ${prof.suggestions ? `<div style="margin-top: 8px; padding: 8px; background: white; border-radius: 5px;">${prof.suggestions}</div>` : ''}
                     </div>
-                    ${prof.suggestions ? `<div style="margin-top: 8px; padding: 8px; background: white; border-radius: 5px;">${prof.suggestions}</div>` : ''}
-                </div>
-            `).join('') || '<div>لا توجد مشاركات حتى الآن</div>';
+                `).join('');
+            } else {
+                professorsList.innerHTML = '<div>لا توجد مشاركات للهيئة التدريسية حتى الآن</div>';
+            }
         }
 
         // تحميل البيانات عند فتح الصفحة

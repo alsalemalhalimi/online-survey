@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>استبيان التعليم الإلكتروني</title>
+    <title>استبيان دراسة أنظمة التعليم الإلكتروني</title>
     <style>
         * {
             margin: 0;
@@ -20,7 +20,7 @@
         }
         
         .container {
-            max-width: 800px;
+            max-width: 900px;
             margin: 0 auto;
             background: white;
             border-radius: 20px;
@@ -36,12 +36,75 @@
         }
         
         .header h1 {
-            font-size: 2.2em;
+            font-size: 2em;
             margin-bottom: 10px;
+        }
+        
+        .header p {
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+        
+        .back-btn {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(255,255,255,0.2);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+        
+        .back-btn:hover {
+            background: rgba(255,255,255,0.3);
+            transform: translateY(-2px);
         }
         
         .content {
             padding: 30px;
+        }
+        
+        .study-intro {
+            background: #e7f3ff;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 25px;
+            border-right: 4px solid #007bff;
+            text-align: right;
+        }
+        
+        .tabs {
+            display: flex;
+            margin-bottom: 20px;
+            background: #e9ecef;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        
+        .tab {
+            flex: 1;
+            padding: 15px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: bold;
+        }
+        
+        .tab.active {
+            background: #28a745;
+            color: white;
+        }
+        
+        .tab-content {
+            display: none;
+        }
+        
+        .tab-content.active {
+            display: block;
         }
         
         .form-group {
@@ -59,7 +122,7 @@
             font-size: 1.1em;
         }
         
-        input[type="text"], textarea {
+        input[type="text"], textarea, select {
             width: 100%;
             padding: 12px;
             border: 2px solid #ddd;
@@ -76,13 +139,29 @@
         .checkbox-group, .radio-group {
             display: flex;
             flex-direction: column;
-            gap: 10px;
+            gap: 12px;
         }
         
         .checkbox-item, .radio-item {
             display: flex;
             align-items: center;
             gap: 10px;
+        }
+        
+        .system-rating {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 10px 0;
+            border: 1px solid #e9ecef;
+        }
+        
+        .rating-scale {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 10px;
+            font-size: 0.9em;
+            color: #666;
         }
         
         button {
@@ -96,153 +175,226 @@
             cursor: pointer;
             width: 100%;
             margin-top: 20px;
+            transition: all 0.3s ease;
         }
         
         button:hover {
             background: linear-gradient(135deg, #0056b3, #004085);
-        }
-        
-        .tabs {
-            display: flex;
-            margin-bottom: 20px;
-            background: #e9ecef;
-            border-radius: 10px;
-            overflow: hidden;
-        }
-        
-        .tab {
-            flex: 1;
-            padding: 15px;
-            text-align: center;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-        
-        .tab.active {
-            background: #28a745;
-            color: white;
-        }
-        
-        .tab-content {
-            display: none;
-        }
-        
-        .tab-content.active {
-            display: block;
+            transform: translateY(-2px);
         }
         
         .thank-you {
             text-align: center;
-            padding: 40px;
+            padding: 60px 40px;
             display: none;
         }
         
         .thank-you h2 {
             color: #28a745;
             margin-bottom: 20px;
+            font-size: 2em;
+        }
+        
+        .system-features {
+            background: #fff3cd;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 10px 0;
+            border-right: 4px solid #ffc107;
+        }
+        
+        .system-features ul {
+            text-align: right;
+            padding-right: 20px;
+        }
+        
+        .system-features li {
+            margin: 8px 0;
         }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="header">
-            <h1>🎓 استبيان فعالية التعليم الإلكتروني</h1>
-            <p>شاركنا رأيك لتحسين تجربة التعليم الإلكتروني</p>
+            <a href="/" class="back-btn">🏠 الرئيسية</a>
+            <h1>📝 استبيان دراسة أنظمة التعليم الإلكتروني</h1>
+            <p>شاركنا رأيك في الأنظمة المقترحة لتطوير التعليم الإلكتروني</p>
         </div>
         
         <div class="content">
+            <div class="study-intro">
+                <h3>🎯 معلومات عن الدراسة:</h3>
+                <p>تهدف هذه الدراسة إلى تقييم ثلاثة أنظمة مقترحة للتعليم الإلكتروني. رجاءاً اقرأ وصف كل نظام ثم قدم تقييمك بناءً على فهمك للنظام وفوائده المحتملة.</p>
+            </div>
+            
             <div class="tabs">
-                <div class="tab active" onclick="showTab('student')">👨‍🎓 للطلاب</div>
-                <div class="tab" onclick="showTab('professor')">👨‍🏫 للهيئة التدريسية</div>
+                <div class="tab active" onclick="showTab('student')">👨‍🎓 استبيان الطلاب</div>
+                <div class="tab" onclick="showTab('professor')">👨‍🏫 استبيان الهيئة التدريسية</div>
             </div>
             
             <!-- استبيان الطلاب -->
             <div id="student-tab" class="tab-content active">
                 <form id="student-form">
                     <div class="form-group">
-                        <label>1. الاسم (اختياري)</label>
-                        <input type="text" name="name" placeholder="اسمك">
+                        <label>1. المعلومات الأساسية</label>
+                        <input type="text" name="name" placeholder="الاسم (اختياري)">
+                        <input type="text" name="major" placeholder="التخصص">
+                        <input type="text" name="level" placeholder="المستوى الدراسي">
                     </div>
                     
                     <div class="form-group">
-                        <label>2. التخصص</label>
-                        <input type="text" name="major" placeholder="تخصصك الدراسي">
+                        <label>2. نظام التحضير الآلي</label>
+                        <div class="system-features">
+                            <strong>مميزات النظام:</strong>
+                            <ul>
+                                <li>تسجيل الحضور تلقائياً باستخدام التعرف على الوجه</li>
+                                <li>تقارير حضور مفصلة</li>
+                                <li>تنبيهات للغياب المتكرر</li>
+                                <li>تكامل مع نظام الدرجات</li>
+                            </ul>
+                        </div>
+                        <div class="system-rating">
+                            <label>مدى أهمية هذا النظام من وجهة نظرك:</label>
+                            <div class="radio-group">
+                                <div class="radio-item">
+                                    <input type="radio" name="attendance_importance" value="مهم جداً" id="att1">
+                                    <label for="att1">مهم جداً</label>
+                                </div>
+                                <div class="radio-item">
+                                    <input type="radio" name="attendance_importance" value="مهم" id="att2">
+                                    <label for="att2">مهم</label>
+                                </div>
+                                <div class="radio-item">
+                                    <input type="radio" name="attendance_importance" value="متوسط الأهمية" id="att3">
+                                    <label for="att3">متوسط الأهمية</label>
+                                </div>
+                                <div class="radio-item">
+                                    <input type="radio" name="attendance_importance" value="قليل الأهمية" id="att4">
+                                    <label for="att4">قليل الأهمية</label>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     
                     <div class="form-group">
-                        <label>3. المستوى الدراسي</label>
-                        <input type="text" name="level" placeholder="مستواك الدراسي">
+                        <label>3. نظام إدارة المحاضرات</label>
+                        <div class="system-features">
+                            <strong>مميزات النظام:</strong>
+                            <ul>
+                                <li>بث حي للمحاضرات مع تفاعل مباشر</li>
+                                <li>تسجيل المحاضرات وإعادة مشاهدتها</li>
+                                <li>مناقشات تفاعلية وطرح الأسئلة</li>
+                                <li>مشاركة الملفات والعروض التقديمية</li>
+                            </ul>
+                        </div>
+                        <div class="system-rating">
+                            <label>مدى أهمية هذا النظام من وجهة نظرك:</label>
+                            <div class="radio-group">
+                                <div class="radio-item">
+                                    <input type="radio" name="lecture_importance" value="مهم جداً" id="lec1">
+                                    <label for="lec1">مهم جداً</label>
+                                </div>
+                                <div class="radio-item">
+                                    <input type="radio" name="lecture_importance" value="مهم" id="lec2">
+                                    <label for="lec2">مهم</label>
+                                </div>
+                                <div class="radio-item">
+                                    <input type="radio" name="lecture_importance" value="متوسط الأهمية" id="lec3">
+                                    <label for="lec3">متوسط الأهمية</label>
+                                </div>
+                                <div class="radio-item">
+                                    <input type="radio" name="lecture_importance" value="قليل الأهمية" id="lec4">
+                                    <label for="lec4">قليل الأهمية</label>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     
                     <div class="form-group">
-                        <label>4. كيف تقيم تجربتك مع التعليم الإلكتروني؟</label>
+                        <label>4. نظام مراقبة الاختبارات</label>
+                        <div class="system-features">
+                            <strong>مميزات النظام:</strong>
+                            <ul>
+                                <li>مراقبة شاشة الطالب خلال الاختبارات</li>
+                                <li>كشف محاولات الغش</li>
+                                <li>تسجيل جلسات الاختبار</li>
+                                <li>تقارير أداء مفصلة</li>
+                            </ul>
+                        </div>
+                        <div class="system-rating">
+                            <label>مدى أهمية هذا النظام من وجهة نظرك:</label>
+                            <div class="radio-group">
+                                <div class="radio-item">
+                                    <input type="radio" name="exam_importance" value="مهم جداً" id="exam1">
+                                    <label for="exam1">مهم جداً</label>
+                                </div>
+                                <div class="radio-item">
+                                    <input type="radio" name="exam_importance" value="مهم" id="exam2">
+                                    <label for="exam2">مهم</label>
+                                </div>
+                                <div class="radio-item">
+                                    <input type="radio" name="exam_importance" value="متوسط الأهمية" id="exam3">
+                                    <label for="exam3">متوسط الأهمية</label>
+                                </div>
+                                <div class="radio-item">
+                                    <input type="radio" name="exam_importance" value="قليل الأهمية" id="exam4">
+                                    <label for="exam4">قليل الأهمية</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>5. أي من هذه الأنظمة تعتقد أنه سيكون الأكثر تأثيراً؟</label>
                         <div class="radio-group">
                             <div class="radio-item">
-                                <input type="radio" name="experience" value="ممتاز" id="exp1">
-                                <label for="exp1">ممتاز</label>
+                                <input type="radio" name="most_effective" value="نظام التحضير الآلي" id="eff1">
+                                <label for="eff1">نظام التحضير الآلي</label>
                             </div>
                             <div class="radio-item">
-                                <input type="radio" name="experience" value="جيد" id="exp2">
-                                <label for="exp2">جيد</label>
+                                <input type="radio" name="most_effective" value="نظام إدارة المحاضرات" id="eff2">
+                                <label for="eff2">نظام إدارة المحاضرات</label>
                             </div>
                             <div class="radio-item">
-                                <input type="radio" name="experience" value="متوسط" id="exp3">
-                                <label for="exp3">متوسط</label>
+                                <input type="radio" name="most_effective" value="نظام مراقبة الاختبارات" id="eff3">
+                                <label for="eff3">نظام مراقبة الاختبارات</label>
                             </div>
                             <div class="radio-item">
-                                <input type="radio" name="experience" value="ضعيف" id="exp4">
-                                <label for="exp4">ضعيف</label>
+                                <input type="radio" name="most_effective" value="جميعها متساوية" id="eff4">
+                                <label for="eff4">جميعها متساوية في الأهمية</label>
                             </div>
                         </div>
                     </div>
                     
                     <div class="form-group">
-                        <label>5. ما هي أبرز مميزات التعليم الإلكتروني؟</label>
+                        <label>6. ما هي التحديات التي تتوقعها في تطبيق هذه الأنظمة؟</label>
                         <div class="checkbox-group">
                             <div class="checkbox-item">
-                                <input type="checkbox" name="advantages" value="المرونة في الوقت" id="adv1">
-                                <label for="adv1">المرونة في الوقت</label>
+                                <input type="checkbox" name="challenges" value="مشاكل تقنية" id="chal1">
+                                <label for="chal1">مشاكل تقنية</label>
                             </div>
                             <div class="checkbox-item">
-                                <input type="checkbox" name="advantages" value="توفير الوقت والجهد" id="adv2">
-                                <label for="adv2">توفير الوقت والجهد</label>
+                                <input type="checkbox" name="challenges" value="مقاومة التغيير" id="chal2">
+                                <label for="chal2">مقاومة التغيير</label>
                             </div>
                             <div class="checkbox-item">
-                                <input type="checkbox" name="advantages" value="تنوع الوسائل التعليمية" id="adv3">
-                                <label for="adv3">تنوع الوسائل التعليمية</label>
+                                <input type="checkbox" name="challenges" value="تكاليف التطبيق" id="chal3">
+                                <label for="chal3">تكاليف التطبيق</label>
                             </div>
                             <div class="checkbox-item">
-                                <input type="checkbox" name="advantages" value="إعادة المحاضرات" id="adv4">
-                                <label for="adv4">إعادة المحاضرات</label>
+                                <input type="checkbox" name="challenges" value="خصوصية البيانات" id="chal4">
+                                <label for="chal4">خصوصية البيانات</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" name="challenges" value="تدريب المستخدمين" id="chal5">
+                                <label for="chal5">تدريب المستخدمين</label>
                             </div>
                         </div>
                     </div>
                     
                     <div class="form-group">
-                        <label>6. ما هي التحديات التي واجهتك؟</label>
-                        <div class="checkbox-group">
-                            <div class="checkbox-item">
-                                <input type="checkbox" name="challenges" value="صعوبة التركيز" id="chal1">
-                                <label for="chal1">صعوبة التركيز</label>
-                            </div>
-                            <div class="checkbox-item">
-                                <input type="checkbox" name="challenges" value="مشاكل تقنية" id="chal2">
-                                <label for="chal2">مشاكل تقنية</label>
-                            </div>
-                            <div class="checkbox-item">
-                                <input type="checkbox" name="challenges" value="قلة التفاعل" id="chal3">
-                                <label for="chal3">قلة التفاعل</label>
-                            </div>
-                            <div class="checkbox-item">
-                                <input type="checkbox" name="challenges" value="صعوبة فهم المواد" id="chal4">
-                                <label for="chal4">صعوبة فهم المواد</label>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label>7. ما هي اقتراحاتك لتحسين التجربة؟</label>
-                        <textarea name="suggestions" placeholder="اكتب اقتراحاتك هنا..."></textarea>
+                        <label>7. اقتراحاتك لتحسين هذه الأنظمة:</label>
+                        <textarea name="suggestions" placeholder="ما هي اقتراحاتك لتحسين هذه الأنظمة أو إضافة مميزات جديدة؟"></textarea>
                     </div>
                     
                     <button type="submit">إرسال الاستبيان</button>
@@ -253,89 +405,222 @@
             <div id="professor-tab" class="tab-content">
                 <form id="professor-form">
                     <div class="form-group">
-                        <label>1. الاسم (اختياري)</label>
-                        <input type="text" name="name" placeholder="اسمك">
-                    </div>
-                    
-                    <div class="form-group">
-                        <label>2. القسم</label>
+                        <label>1. المعلومات الأساسية</label>
+                        <input type="text" name="name" placeholder="الاسم (اختياري)">
                         <input type="text" name="department" placeholder="القسم">
-                    </div>
-                    
-                    <div class="form-group">
-                        <label>3. المادة</label>
                         <input type="text" name="course" placeholder="المادة">
+                        <select name="experience_years">
+                            <option value="">عدد سنوات الخبرة في التدريس</option>
+                            <option value="أقل من 5 سنوات">أقل من 5 سنوات</option>
+                            <option value="5-10 سنوات">5-10 سنوات</option>
+                            <option value="11-15 سنة">11-15 سنة</option>
+                            <option value="أكثر من 15 سنة">أكثر من 15 سنة</option>
+                        </select>
                     </div>
                     
                     <div class="form-group">
-                        <label>4. كيف تقيم تجربتك مع التعليم الإلكتروني؟</label>
-                        <div class="radio-group">
-                            <div class="radio-item">
-                                <input type="radio" name="experience" value="ممتاز" id="prof-exp1">
-                                <label for="prof-exp1">ممتاز</label>
-                            </div>
-                            <div class="radio-item">
-                                <input type="radio" name="experience" value="جيد" id="prof-exp2">
-                                <label for="prof-exp2">جيد</label>
-                            </div>
-                            <div class="radio-item">
-                                <input type="radio" name="experience" value="متوسط" id="prof-exp3">
-                                <label for="prof-exp3">متوسط</label>
-                            </div>
-                            <div class="radio-item">
-                                <input type="radio" name="experience" value="ضعيف" id="prof-exp4">
-                                <label for="prof-exp4">ضعيف</label>
+                        <label>2. نظام التحضير الآلي</label>
+                        <div class="system-features">
+                            <strong>مميزات النظام:</strong>
+                            <ul>
+                                <li>تسجيل الحضور تلقائياً باستخدام التعرف على الوجه</li>
+                                <li>تقارير حضور مفصلة للطلاب</li>
+                                <li>تنبيهات للغياب المتكرر</li>
+                                <li>تكامل مع نظام الدرجات</li>
+                            </ul>
+                        </div>
+                        <div class="system-rating">
+                            <label>مدى فائدة هذا النظام في العملية التعليمية:</label>
+                            <div class="radio-group">
+                                <div class="radio-item">
+                                    <input type="radio" name="attendance_benefit" value="مفيد جداً" id="prof-att1">
+                                    <label for="prof-att1">مفيد جداً</label>
+                                </div>
+                                <div class="radio-item">
+                                    <input type="radio" name="attendance_benefit" value="مفيد" id="prof-att2">
+                                    <label for="prof-att2">مفيد</label>
+                                </div>
+                                <div class="radio-item">
+                                    <input type="radio" name="attendance_benefit" value="متوسط الفائدة" id="prof-att3">
+                                    <label for="prof-att3">متوسط الفائدة</label>
+                                </div>
+                                <div class="radio-item">
+                                    <input type="radio" name="attendance_benefit" value="قليل الفائدة" id="prof-att4">
+                                    <label for="prof-att4">قليل الفائدة</label>
+                                </div>
                             </div>
                         </div>
                     </div>
                     
                     <div class="form-group">
-                        <label>5. ما هي أبرز التحديات التقنية؟</label>
+                        <label>3. نظام إدارة المحاضرات</label>
+                        <div class="system-features">
+                            <strong>مميزات النظام:</strong>
+                            <ul>
+                                <li>بث حي للمحاضرات مع تفاعل مباشر</li>
+                                <li>تسجيل المحاضرات وإعادة مشاهدتها</li>
+                                <li>مناقشات تفاعلية وطرح الأسئلة</li>
+                                <li>مشاركة الملفات والعروض التقديمية</li>
+                                <li>سبورة تفاعلية رقمية</li>
+                            </ul>
+                        </div>
+                        <div class="system-rating">
+                            <label>مدى فائدة هذا النظام في العملية التعليمية:</label>
+                            <div class="radio-group">
+                                <div class="radio-item">
+                                    <input type="radio" name="lecture_benefit" value="مفيد جداً" id="prof-lec1">
+                                    <label for="prof-lec1">مفيد جداً</label>
+                                </div>
+                                <div class="radio-item">
+                                    <input type="radio" name="lecture_benefit" value="مفيد" id="prof-lec2">
+                                    <label for="prof-lec2">مفيد</label>
+                                </div>
+                                <div class="radio-item">
+                                    <input type="radio" name="lecture_benefit" value="متوسط الفائدة" id="prof-lec3">
+                                    <label for="prof-lec3">متوسط الفائدة</label>
+                                </div>
+                                <div class="radio-item">
+                                    <input type="radio" name="lecture_benefit" value="قليل الفائدة" id="prof-lec4">
+                                    <label for="prof-lec4">قليل الفائدة</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>4. نظام مراقبة الاختبارات</label>
+                        <div class="system-features">
+                            <strong>مميزات النظام:</strong>
+                            <ul>
+                                <li>مراقبة شاشة الطالب خلال الاختبارات</li>
+                                <li>كشف محاولات الغش</li>
+                                <li>تسجيل جلسات الاختبار</li>
+                                <li>تقارير أداء مفصلة</li>
+                                <li>نظام إنذار للسلوك المشبوه</li>
+                            </ul>
+                        </div>
+                        <div class="system-rating">
+                            <label>مدى فائدة هذا النظام في العملية التعليمية:</label>
+                            <div class="radio-group">
+                                <div class="radio-item">
+                                    <input type="radio" name="exam_benefit" value="مفيد جداً" id="prof-exam1">
+                                    <label for="prof-exam1">مفيد جداً</label>
+                                </div>
+                                <div class="radio-item">
+                                    <input type="radio" name="exam_benefit" value="مفيد" id="prof-exam2">
+                                    <label for="prof-exam2">مفيد</label>
+                                </div>
+                                <div class="radio-item">
+                                    <input type="radio" name="exam_benefit" value="متوسط الفائدة" id="prof-exam3">
+                                    <label for="prof-exam3">متوسط الفائدة</label>
+                                </div>
+                                <div class="radio-item">
+                                    <input type="radio" name="exam_benefit" value="قليل الفائدة" id="prof-exam4">
+                                    <label for="prof-exam4">قليل الفائدة</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>5. أي من هذه الأنظمة تعتقد أنه سيكون الأكثر تأثيراً في تحسين التعليم الإلكتروني؟</label>
+                        <div class="radio-group">
+                            <div class="radio-item">
+                                <input type="radio" name="most_impactful" value="نظام التحضير الآلي" id="imp1">
+                                <label for="imp1">نظام التحضير الآلي</label>
+                            </div>
+                            <div class="radio-item">
+                                <input type="radio" name="most_impactful" value="نظام إدارة المحاضرات" id="imp2">
+                                <label for="imp2">نظام إدارة المحاضرات</label>
+                            </div>
+                            <div class="radio-item">
+                                <input type="radio" name="most_impactful" value="نظام مراقبة الاختبارات" id="imp3">
+                                <label for="imp3">نظام مراقبة الاختبارات</label>
+                            </div>
+                            <div class="radio-item">
+                                <input type="radio" name="most_impactful" value="جميعها متساوية" id="imp4">
+                                <label for="imp4">جميعها متساوية في الأهمية</label>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>6. ما هي التحديات المتوقعة في تطبيق هذه الأنظمة؟</label>
                         <div class="checkbox-group">
                             <div class="checkbox-item">
-                                <input type="checkbox" name="tech_challenges" value="جودة الإنترنت" id="tech1">
-                                <label for="tech1">جودة الإنترنت</label>
+                                <input type="checkbox" name="implementation_challenges" value="مقاومة التغيير" id="imp-chal1">
+                                <label for="imp-chal1">مقاومة التغيير من المستخدمين</label>
                             </div>
                             <div class="checkbox-item">
-                                <input type="checkbox" name="tech_challenges" value="منصات التعليم" id="tech2">
-                                <label for="tech2">منصات التعليم</label>
+                                <input type="checkbox" name="implementation_challenges" value="التكاليف" id="imp-chal2">
+                                <label for="imp-chal2">التكاليف المالية</label>
                             </div>
                             <div class="checkbox-item">
-                                <input type="checkbox" name="tech_challenges" value="التفاعل مع الطلاب" id="tech3">
-                                <label for="tech3">التفاعل مع الطلاب</label>
+                                <input type="checkbox" name="implementation_challenges" value="الدعم الفني" id="imp-chal3">
+                                <label for="imp-chal3">نقص الدعم الفني</label>
                             </div>
                             <div class="checkbox-item">
-                                <input type="checkbox" name="tech_challenges" value="تقييم الطلاب" id="tech4">
-                                <label for="tech4">تقييم الطلاب</label>
+                                <input type="checkbox" name="implementation_challenges" value="الخصوصية" id="imp-chal4">
+                                <label for="imp-chal4">مخاوف الخصوصية</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" name="implementation_challenges" value="التدريب" id="imp-chal5">
+                                <label for="imp-chal5">الحاجة لبرامج تدريبية</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" name="implementation_challenges" value="البنية التحتية" id="imp-chal6">
+                                <label for="imp-chal6">ضعف البنية التحتية التقنية</label>
                             </div>
                         </div>
                     </div>
                     
                     <div class="form-group">
-                        <label>6. ما مدى فعالية أدوات التقويم الإلكتروني؟</label>
+                        <label>7. ما هي متطلبات النجاح التي تراها ضرورية لتطبيق هذه الأنظمة؟</label>
+                        <div class="checkbox-group">
+                            <div class="checkbox-item">
+                                <input type="checkbox" name="success_factors" value="التدريب" id="suc1">
+                                <label for="suc1">برامج تدريبية شاملة</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" name="success_factors" value="الدعم الفني" id="suc2">
+                                <label for="suc2">دعم فني مستمر</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" name="success_factors" value="التوعية" id="suc3">
+                                <label for="suc3">حملات توعية للمستخدمين</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" name="success_factors" value="التدرج" id="suc4">
+                                <label for="suc4">تطبيق تدريجي</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" name="success_factors" value="الميزانية" id="suc5">
+                                <label for="suc5">ميزانية كافية</label>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>8. اقتراحاتك لتحسين هذه الأنظمة أو إضافة أنظمة أخرى:</label>
+                        <textarea name="suggestions" placeholder="ما هي اقتراحاتك لتحسين هذه الأنظمة أو إضافة أنظمة جديدة؟"></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>9. هل توافق على المشاركة في دراسة متابعة لهذه الأنظمة؟</label>
                         <div class="radio-group">
                             <div class="radio-item">
-                                <input type="radio" name="evaluation" value="فعالة جداً" id="eval1">
-                                <label for="eval1">فعالة جداً</label>
+                                <input type="radio" name="follow_up" value="نعم" id="follow1">
+                                <label for="follow1">نعم، أوافق</label>
                             </div>
                             <div class="radio-item">
-                                <input type="radio" name="evaluation" value="فعالة" id="eval2">
-                                <label for="eval2">فعالة</label>
+                                <input type="radio" name="follow_up" value="ربما" id="follow2">
+                                <label for="follow2">ربما</label>
                             </div>
                             <div class="radio-item">
-                                <input type="radio" name="evaluation" value="متوسطة" id="eval3">
-                                <label for="eval3">متوسطة</label>
-                            </div>
-                            <div class="radio-item">
-                                <input type="radio" name="evaluation" value="غير فعالة" id="eval4">
-                                <label for="eval4">غير فعالة</label>
+                                <input type="radio" name="follow_up" value="لا" id="follow3">
+                                <label for="follow3">لا، لا أوافق</label>
                             </div>
                         </div>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label>7. اقتراحات للتحسين:</label>
-                        <textarea name="suggestions" placeholder="اكتب اقتراحاتك هنا..."></textarea>
                     </div>
                     
                     <button type="submit">إرسال الاستبيان</button>
@@ -345,7 +630,8 @@
             <!-- رسالة الشكر -->
             <div id="thank-you" class="thank-you">
                 <h2>شكراً لمشاركتك! 🎉</h2>
-                <p>رأيك مهم لنا لتحسين تجربة التعليم الإلكتروني</p>
+                <p>مساهمتك قيمة في تطوير أنظمة التعليم الإلكتروني</p>
+                <p>فريق التطوير: سالم الحالمي، بدرالدين عقبة، أحمد زيدان، عمران عازب، محمد المريسي، طارق الشامي</p>
             </div>
         </div>
     </div>
@@ -365,17 +651,58 @@
             event.target.classList.add('active');
         }
         
-        // معالجة إرسال الاستبيان
+        // دالة إرسال البيانات إلى السيرفر
+        async function submitSurvey(formData, type) {
+            try {
+                const response = await fetch(`/api/survey/${type}`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(formData)
+                });
+
+                const result = await response.json();
+                
+                if (result.success) {
+                    // إخفاء الاستبيان وإظهار رسالة الشكر
+                    document.getElementById('student-tab').style.display = 'none';
+                    document.getElementById('professor-tab').style.display = 'none';
+                    document.getElementById('thank-you').style.display = 'block';
+                } else {
+                    alert('حدث خطأ في حفظ البيانات: ' + result.message);
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('حدث خطأ في الإرسال. يرجى المحاولة مرة أخرى.');
+            }
+        }
+
+        // معالجة إرسال استبيان الطلاب
         document.getElementById('student-form').addEventListener('submit', function(e) {
             e.preventDefault();
-            document.getElementById('student-tab').style.display = 'none';
-            document.getElementById('thank-you').style.display = 'block';
+            const formData = new FormData(this);
+            const data = Object.fromEntries(formData.entries());
+            
+            // معالجة checkboxes (لأنها متعددة القيم)
+            data.challenges = formData.getAll('challenges');
+            
+            // إرسال البيانات
+            submitSurvey(data, 'student');
         });
-        
+
+        // معالجة إرسال استبيان الهيئة التدريسية
         document.getElementById('professor-form').addEventListener('submit', function(e) {
             e.preventDefault();
-            document.getElementById('professor-tab').style.display = 'none';
-            document.getElementById('thank-you').style.display = 'block';
+            const formData = new FormData(this);
+            const data = Object.fromEntries(formData.entries());
+            
+            // معالجة checkboxes (لأنها متعددة القيم)
+            data.implementation_challenges = formData.getAll('implementation_challenges');
+            data.success_factors = formData.getAll('success_factors');
+            
+            // إرسال البيانات
+            submitSurvey(data, 'professor');
         });
     </script>
 </body>
